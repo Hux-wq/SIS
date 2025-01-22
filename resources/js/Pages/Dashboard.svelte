@@ -1,8 +1,23 @@
 <script>
+  import SideBar from './layouts/SideBar.svelte';
+  import Header from './layouts/Header.svelte';
+  import Error from './layouts/Error.svelte';
+  import HeadTitle from './layouts/HeadTitle.svelte';
+
+
   export let user;
+  export let auth;
+  export let errors = {};
+  
 </script>
 
-<div>
+<HeadTitle title={'Dashboard'} />
+
+<div id="main">
+  <Header username={auth.user.name} userid={auth.user.id} useremail={auth.user.email} />
+  <SideBar username={auth.user.name} userid={auth.user.id} />
+  <Error errors={errors} />
+  
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       welcome {user.name}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -10,7 +25,7 @@
     
     <x-slot name="header">
         <h2 class="">
-            Dashboard 
+          {auth.user.name} Dashboard  
         </h2>
     </x-slot>
 
@@ -45,9 +60,7 @@
                         <i class="bi bi-cart"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>145</h6>
-                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-  
+                        <h6>30,000</h6>
                       </div>
                     </div>
                   </div>
@@ -73,16 +86,14 @@
                   </div>
   
                   <div class="card-body">
-                    <h5 class="card-title primary-theme yellow">Revenue <span>| This Month</span></h5>
+                    <h5 class="card-title primary-theme yellow">Class</h5>
   
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-currency-dollar"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>$3,264</h6>
-                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-  
+                        <h6>45</h6>
                       </div>
                     </div>
                   </div>
@@ -109,16 +120,14 @@
                   </div>
   
                   <div class="card-body">
-                    <h5 class="card-title primary-theme yellow">Customers <span>| This Year</span></h5>
+                    <h5 class="card-title primary-theme yellow">Department</h5>
   
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-people"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>1244</h6>
-                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-  
+                        <h6>4</h6>
                       </div>
                     </div>
   

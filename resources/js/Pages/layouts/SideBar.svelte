@@ -1,19 +1,36 @@
 <script>
   import { Link } from '@inertiajs/svelte';
+  import  SidebarLink  from './SidebarLink.svelte';
+  import  DropdownSidebarLink  from './DropdownSidebarLink.svelte';
 
-  // Define the list of links with their paths and labels
-  const links = [
-    { path: '/dashboard', label: 'Dashboard' },
-    { path: '/students', label: 'Students' },
-    { path: '/StudentReports', label: 'Student Reports'},
-    { path: '/ClassReports', label: 'Class Reports'  },
-    { path: '/SchoolReports', label: 'School Reports' },
+  export let userid;
+  export let username;
 
+
+  const requestLinks = [
+    { path: '/EnrollmentCertificate', label: 'Certificate of Enrollment'},
+    { path: '/GraduationCertificate', label: 'Certificate of Graduation'},
+    { path: '/Transcript',            label: 'Transcripts of Records'},
+    { path: '/ID Print',              label: 'ID Prints'},
+
+    { path: '/GradeEvaluation', label: 'Grade Re-Evaluation Request'},
+    { path: '/IncompleteGrade', label: 'INC Grade Completion Request'},
+
+    { path: '/TuitionFee',  label: ' Tuition Fee Breakdown Request'},
+    { path: '/Scholarship', label: 'Scholarship Request'},
+
+    { path: '/GraduationApplication', label: ' Application for Graduation'},
+    { path: '/Clearance', label: 'Clearance Form Request'},
+    { path: '/Diploma',   label: 'Diploma Request'},
+
+    { path: '/Internship',  label: 'Internship & OJT Certificate Request'},
+    { path: '/SpecialExam', label: 'Special Examination Request'},
   ];
-
-  const dashboardLinks = links.slice(0, 1);
-  const studentLinks = links.slice(1, 2);
-  const reportsLinks = links.slice(2,5);   
+  const documentRequestLinks = requestLinks.slice(0,4);
+  const gradeRequestLinks = requestLinks.slice(4,6);
+  const financialRequestLinks = requestLinks.slice(6,8);
+  const graduationRequestLinks = requestLinks.slice(8,11);
+  const miscRequestLinks = requestLinks.slice(11,13);
 
   // Track the current active path
   let currentPath = window.location.pathname;
@@ -27,274 +44,95 @@
   function setActivePath(path) {
     currentPath = path;
   }
+  
 </script>
+<aside id="sidebar" class="sidebar" >
+
+  <ul class="sidebar-nav" id="sidebar-nav">
 
 
+    <div class="flex items-center w-full p-1 pl-6" style="display: flex; align-items: center; padding: 3px; width: 40px; background-color: transparent; height: 4rem;">
+      <div class="flex items-center justify-center" style="display: flex; align-items: center; justify-content: center;">
+          <img src="https://elc-public-images.s3.ap-southeast-1.amazonaws.com/bcp-olp-logo-mini2.png" alt="Logo" style="width: 30px; height: auto;">
+      </div>
+    </div>
 
-<li class="nav-heading">Dashboard</li>
-  {#each dashboardLinks as { path, label }}
-    <li class="nav-item">
-      <Link class="nav-link nav-button {currentPath === path ? 'active' : ''}" href={path} on:click={() => setActivePath(path)}>
-        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i>
-        <span class="w-100">{label}</span>
-      </Link>
-    </li>
-  {/each}
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 16px;">
+      <div style="display: flex; align-items: center; justify-content: center; width: 96px; height: 96px; border-radius: 50%; background-color: #334155; color: #e2e8f0; font-size: 48px; font-weight: bold; text-transform: uppercase; line-height: 1;">
+          <img src="img/profile-img.jpg" style="border-radius: 100%" alt="">
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 24px; text-align: center;">
+          <div class="h-txt-theme" style="font-weight: 500; color: #fff;">
+              {username}
+          </div>
+          <div class="h-txt-theme" style="margin-top: 4px; font-size: 14px; color: #fff;">
+              {userid}
+          </div>
+      </div>
+  </div>
 
   <hr class="sidebar-divider">
-
-  <li class="nav-heading">Find Student</li>
-  {#each studentLinks as { path, label }}
-    <li class="nav-item">
-      <Link class="nav-link nav-button {currentPath === path ? 'active' : ''}" href={path} on:click={() => setActivePath(path)}>
-        <i class="fa-solid fa-graduation-cap" style="width: 20px;"></i>
-        <span class="w-100">{label}</span>
-      </Link>
-    </li>
-  {/each}
+  <SidebarLink path={'/dashboard'} heading={'Dashboard'} label={'Dashboard'} icon={'fa-solid fa-chart-pie'}/>
 
   <hr class="sidebar-divider">
+  <SidebarLink path={'/students'} heading={'Find Student'} label={'Students'} icon={'fa-solid fa-graduation-cap'}/>
 
-    <li class="nav-heading">Your Reports</li>
+  <hr class="sidebar-divider">
+  <SidebarLink path={'/CourseList'} heading={'Course and Subjects '} label={'Course List'} icon={'fa-solid fa-list'}/>
+  <SidebarLink path={'/SubjectManagement'} label={'Subject Management'} icon={'fa-solid fa-book'}/>
+  <SidebarLink path={'/Department'} label={'Department'} icon={'fa-solid fa-building'}/>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed"    data-bs-target="#reports-nav" data-bs-toggle="collapse" href="/">
-        <i class="fa-solid fa-chart-line" style="width: 20px;"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="reports-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        {#each reportsLinks as { path, label }}
-        <li class="nav-item">
-          <Link class="nav-link nav-button {currentPath === path ? 'active' : ''}"  href="{path}" on:click={() => setActivePath(path)}>
-            <span class="ps-1">{label}</span>
-          </Link>
-        </li>
-        {/each}
-      </ul>
-    </li><!-- End System Nav -->
+  <hr class="sidebar-divider">
+  <DropdownSidebarLink  heading={'Student Request'} 
+                      dropdownName={'Document Requests'} 
+                      path={['/EnrollmentCertificate','/GraduationCertificate', '/Trasncript', 'ID Print']} 
+                      label={['Certificate of Enrollment','Certificate of Graduation', 'Trancript', 'ID Print']} 
+                      icon={'fa-solid fa-folder-closed'}
+                      currentPath={currentPath}
+                      toggle={'student-request'}
+  />
+  <DropdownSidebarLink dropdownName={'Grade & Academic Records'} 
+                      path={['/GradeEvaluation','/IncompleteGrade', ]} 
+                      label={['Grade Re-Evaluation Request','INC Grade Completion Request']} 
+                      icon={'fa-solid fa-folder-closed'}
+                      currentPath={currentPath}
+                      toggle={'grade-request'}
+  />
+  <DropdownSidebarLink dropdownName={'Financial & Payments'} 
+                      path={['/TuitionFee','/Scholarship', ]} 
+                      label={['Tuition Fee Breakdown Request','Scholarship Request']} 
+                      icon={'fa-solid fa-credit-card'}
+                      currentPath={currentPath}
+                      toggle={'financial-request'}
+  />
+  <DropdownSidebarLink dropdownName={'Graduation & Clearance'} 
+                      path={['/GraduationApplication','/Clearance','/Diploma' ]} 
+                      label={['Application for Graduation','Clearance Request', 'Diploma']} 
+                      icon={'fa-solid fa-user-graduate'}
+                      currentPath={currentPath}
+                      toggle={'grad-request'}
+  />
+  <DropdownSidebarLink dropdownName={'Miscellaneous Requests'} 
+                      path={['/Internship','/SpecialExam']} 
+                      label={['Internship & OJT Certification Request','Special Examination Request']} 
+                      icon={'fa-brands fa-files-pinwheel'}
+                      currentPath={currentPath}
+                      toggle={'misc-request'}
+  />
 
-    <hr class="sidebar-divider">
-    
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="/">
-        <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="components-alerts.html">
-            <i class="bi bi-circle"></i><span>Alerts</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-accordion.html">
-            <i class="bi bi-circle"></i><span>Accordion</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-badges.html">
-            <i class="bi bi-circle"></i><span>Badges</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-breadcrumbs.html">
-            <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-buttons.html">
-            <i class="bi bi-circle"></i><span>Buttons</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-cards.html">
-            <i class="bi bi-circle"></i><span>Cards</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-carousel.html">
-            <i class="bi bi-circle"></i><span>Carousel</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-list-group.html">
-            <i class="bi bi-circle"></i><span>List group</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-modal.html">
-            <i class="bi bi-circle"></i><span>Modal</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-tabs.html">
-            <i class="bi bi-circle"></i><span>Tabs</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-pagination.html">
-            <i class="bi bi-circle"></i><span>Pagination</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-progress.html">
-            <i class="bi bi-circle"></i><span>Progress</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-spinners.html">
-            <i class="bi bi-circle"></i><span>Spinners</span>
-          </a>
-        </li>
-        <li>
-          <a href="components-tooltips.html">
-            <i class="bi bi-circle"></i><span>Tooltips</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Components Nav -->
+  <hr class="sidebar-divider">
+  <DropdownSidebarLink  heading={'Reports and Analytics'} 
+                      dropdownName={'Grade Report & Analytics'} 
+                      path={['/StudentReports','/ClassReports', '/SchoolReports']} 
+                      label={['Student Reports','Class Reports', 'School Reports']} 
+                      icon={'fa-solid fa-chart-line'}
+                      currentPath={currentPath}
+                      toggle={'reports-analytics'}
+  />
+  <SidebarLink path={'/EnrollmentReports'} label={'Enrollment Reports'} icon={'fa-solid fa-chalkboard-user'}/>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="/">
-        <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="forms-elements.html">
-            <i class="bi bi-circle"></i><span>Form Elements</span>
-          </a>
-        </li>
-        <li>
-          <a href="forms-layouts.html">
-            <i class="bi bi-circle"></i><span>Form Layouts</span>
-          </a>
-        </li>
-        <li>
-          <a href="forms-editors.html">
-            <i class="bi bi-circle"></i><span>Form Editors</span>
-          </a>
-        </li>
-        <li>
-          <a href="forms-validation.html">
-            <i class="bi bi-circle"></i><span>Form Validation</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Forms Nav -->
+  </ul>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="/">
-        <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="tables-general.html">
-            <i class="bi bi-circle"></i><span>General Tables</span>
-          </a>
-        </li>
-        <li>
-          <a href="tables-data.html">
-            <i class="bi bi-circle"></i><span>Data Tables</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Tables Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="/">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
-          </a>
-        </li>
-        <li>
-          <a href="charts-apexcharts.html">
-            <i class="bi bi-circle"></i><span>ApexCharts</span>
-          </a>
-        </li>
-        <li>
-          <a href="charts-echarts.html">
-            <i class="bi bi-circle"></i><span>ECharts</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Charts Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="/">
-        <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="icons-bootstrap.html">
-            <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-          </a>
-        </li>
-        <li>
-          <a href="icons-remix.html">
-            <i class="bi bi-circle"></i><span>Remix Icons</span>
-          </a>
-        </li>
-        <li>
-          <a href="icons-boxicons.html">
-            <i class="bi bi-circle"></i><span>Boxicons</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Icons Nav -->
-
-    <hr class="sidebar-divider">
-
-    <li class="nav-heading">Pages</li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="users-profile.html">
-        <i class="bi bi-person"></i>
-        <span>Profile</span>
-      </a>
-    </li><!-- End Profile Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li><!-- End F.A.Q Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-contact.html">
-        <i class="bi bi-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </li><!-- End Contact Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
-        <i class="bi bi-card-list"></i>
-        <span>Register</span>
-      </a>
-    </li><!-- End Register Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-login.html">
-        <i class="bi bi-box-arrow-in-right"></i>
-        <span>Login</span>
-      </a>
-    </li><!-- End Login Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-error-404.html">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li><!-- End Error 404 Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-blank.html">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li>
-
+</aside>
+ 
 
