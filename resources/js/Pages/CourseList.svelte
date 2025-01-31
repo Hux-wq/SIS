@@ -7,14 +7,14 @@
 
 </script>
 
-<PageLayout auth={auth} errors={errors} title={'Students'}>
+<PageLayout auth={auth} errors={errors} title={'Course List'}>
   <section class="section">
     <div class="row">
       <div class="col-lg-12">
 
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title yellow">Find Students</h5>
+            <h5 class="card-title yellow">Courses</h5>
 
 
             <!-- Table with stripped rows -->
@@ -22,11 +22,11 @@
               <thead>
                 <tr>
                   <th >
-                    <b>N</b>ame
+                    <b>N</b>o#
                   </th>
-                  <th>Ext.</th>
-                  <th>City</th>
-                  <th  data-type="date" data-format="YYYY/DD/MM">Start Date</th>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th  data-type="date" data-format="YYYY/DD/MM">Date Added</th>
                   <th>Action</th>
                 </tr>
               </thead>

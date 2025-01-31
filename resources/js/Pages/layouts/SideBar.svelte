@@ -1,54 +1,53 @@
 <script>
-  import { Link } from '@inertiajs/svelte';
   import  SidebarLink  from './SidebarLink.svelte';
   import  DropdownSidebarLink  from './DropdownSidebarLink.svelte';
+  import { onMount } from 'svelte';
+
+  let sidebar;
+
+  onMount(() => {
+    if (sidebar) {
+      sidebar.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (sidebar) {
+        sidebar.removeEventListener('scroll', handleScroll);
+      }
+    };
+  });
+
+  function handleScroll() {
+    localStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+  }
 
   export let userid;
   export let username;
 
-
-  const requestLinks = [
-    { path: '/EnrollmentCertificate', label: 'Certificate of Enrollment'},
-    { path: '/GraduationCertificate', label: 'Certificate of Graduation'},
-    { path: '/Transcript',            label: 'Transcripts of Records'},
-    { path: '/ID Print',              label: 'ID Prints'},
-
-    { path: '/GradeEvaluation', label: 'Grade Re-Evaluation Request'},
-    { path: '/IncompleteGrade', label: 'INC Grade Completion Request'},
-
-    { path: '/TuitionFee',  label: ' Tuition Fee Breakdown Request'},
-    { path: '/Scholarship', label: 'Scholarship Request'},
-
-    { path: '/GraduationApplication', label: ' Application for Graduation'},
-    { path: '/Clearance', label: 'Clearance Form Request'},
-    { path: '/Diploma',   label: 'Diploma Request'},
-
-    { path: '/Internship',  label: 'Internship & OJT Certificate Request'},
-    { path: '/SpecialExam', label: 'Special Examination Request'},
-  ];
-  const documentRequestLinks = requestLinks.slice(0,4);
-  const gradeRequestLinks = requestLinks.slice(4,6);
-  const financialRequestLinks = requestLinks.slice(6,8);
-  const graduationRequestLinks = requestLinks.slice(8,11);
-  const miscRequestLinks = requestLinks.slice(11,13);
-
-  // Track the current active path
   let currentPath = window.location.pathname;
 
-  // Listen for URL changes (for SPA navigation)
-  window.addEventListener('popstate', () => {
-    currentPath = window.location.pathname;
-  });
+  window.addEventListener('popstate', () => 
+    {
+        currentPath = window.location.pathname;
+    }
+  );
 
-  // Update active path when a link is clicked
-  function setActivePath(path) {
-    currentPath = path;
-  }
-  
+  function setActivePath(path) 
+    {
+        currentPath = path;
+    }
+
 </script>
-<aside id="sidebar" class="sidebar" >
 
-  <ul class="sidebar-nav" id="sidebar-nav">
+<style>
+  .sidebar{
+    background: linear-gradient(to bottom right, #18212f, #0c1e42) !important;
+  }
+</style>
+
+<aside bind:this={sidebar}  id="sidebar" class="sidebar" style="z-index: 99;">
+
+  <ul class="sidebar-nav" id="sidebar-nav" >
 
 
     <div class="flex items-center w-full p-1 pl-6" style="display: flex; align-items: center; padding: 3px; width: 40px; background-color: transparent; height: 4rem;">
@@ -70,17 +69,33 @@
           </div>
       </div>
   </div>
+  <hr class="sidebar-divider">
+  <SidebarLink  path={'/dashboard'} 
+                heading={'Dashboard'} 
+                label={'Dashboard'} 
+                icon={'fa-solid fa-chart-pie'}
+  />
+
+  <hr class="sidebar-divider ">
+  <SidebarLink  path={'/students'} 
+                heading={'Find Student'} 
+                label={'Students'} 
+                icon={'fa-solid fa-graduation-cap'}
+  />
 
   <hr class="sidebar-divider">
-  <SidebarLink path={'/dashboard'} heading={'Dashboard'} label={'Dashboard'} icon={'fa-solid fa-chart-pie'}/>
-
-  <hr class="sidebar-divider">
-  <SidebarLink path={'/students'} heading={'Find Student'} label={'Students'} icon={'fa-solid fa-graduation-cap'}/>
-
-  <hr class="sidebar-divider">
-  <SidebarLink path={'/CourseList'} heading={'Course and Subjects '} label={'Course List'} icon={'fa-solid fa-list'}/>
-  <SidebarLink path={'/SubjectManagement'} label={'Subject Management'} icon={'fa-solid fa-book'}/>
-  <SidebarLink path={'/Department'} label={'Department'} icon={'fa-solid fa-building'}/>
+  <SidebarLink  path={'/CourseList'} 
+                heading={'Course and Subjects '} 
+                label={'Course List'} 
+                icon={'fa-solid fa-list'}
+  />
+  <SidebarLink  path={'/SubjectManagement'} 
+                label={'Subject Management'} 
+                icon={'fa-solid fa-book'}
+  />
+  <SidebarLink  path={'/Department'} 
+                label={'Department'} 
+                icon={'fa-solid fa-building'}/>
 
   <hr class="sidebar-divider">
   <DropdownSidebarLink  heading={'Student Request'} 
@@ -123,8 +138,8 @@
   <hr class="sidebar-divider">
   <DropdownSidebarLink  heading={'Reports and Analytics'} 
                       dropdownName={'Grade Report & Analytics'} 
-                      path={['/StudentReports','/ClassReports', '/SchoolReports']} 
-                      label={['Student Reports','Class Reports', 'School Reports']} 
+                      path={  ['/StudentReports', '/ClassReports', '/SchoolReports']} 
+                      label={ ['Student Reports', 'Class Reports', 'School Reports']} 
                       icon={'fa-solid fa-chart-line'}
                       currentPath={currentPath}
                       toggle={'reports-analytics'}

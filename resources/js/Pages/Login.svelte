@@ -28,7 +28,7 @@
       formData.append('email', email);
       formData.append('password', password);
       formData.append('remember', rememberMe ? 'on' : '');
-      formData.append('_token', csrfToken); // Add CSRF token to the request
+      formData.append('_token', csrfToken); 
   
       try {
 
@@ -74,7 +74,7 @@
   
 
 
-<div class="container">
+<div class="container-fluid card m-0 p-0">
 
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center">
       <div class="container">
@@ -90,18 +90,18 @@
             </div>
             </div><!-- End Logo -->
 
-            <div class="card mb-3" style="background: linear-gradient(to bottom right, #18212f, #0c1e42);">
+            <div class="card mb-3" style="background: aliceblue !important;">
 
               <div class="card-body">
 
                 <div class="pt-3 pb-2">
-                  <h5 class="text-center pb-0 fs-4" style="color:#fff;">Login to Your Account</h5>
+                  <h5 class="text-center pb-0 fs-4">Login to Your Account</h5>
                 </div>
 
                 <form on:submit={submitForm} class="row g-3 px-2 needs-validation">
                     <!-- Email Address -->
                     <div class="col-12 mt-2">
-                      <label for="email" class="form-label" style="color:#fff">Email</label>
+                      <label for="email" class="form-label" >Email</label>
                       <div class="input-group has-validation">
                         <input
                           id="email"
@@ -121,7 +121,7 @@
                   
                     <!-- Password -->
                     <div class="col-12 mt-2">
-                      <label for="password" class="form-label" style="color:#fff">Password</label>
+                      <label for="password" class="form-label">Password</label>
                       <div class="input-group has-validation">
                         <input
                           id="password"
@@ -133,7 +133,7 @@
                         />
                       </div>
                       {#if errors.password}
-                      <div class="alert alert-danger mt-1 py-2 text-light w-100" style="background-color: red;" >
+                      <div class="alert alert-danger mt-1 py-2 text-light w-100 " style="background-color: red;" >
                         {errors.password}
                       </div>
                       {/if}
@@ -153,7 +153,7 @@
                           bind:checked={rememberMe}
                           name="remember"
                         />
-                        <span style="color:#fff">Remember me</span>
+                        <span>Remember me</span>
                       </label>
                     </div>
                   
@@ -169,11 +169,12 @@
                   
                     <!-- Submit Button -->
                     <div>
-                      <button type="submit" class="btn btn-primary mt-2 w-100">Log in</button>
+                      <button type="submit" class="btn  mt-2 w-100 btn-primary">Log in</button>
                     </div>
                   </form>
 
               </div>
+
             </div>
 
             <div class="credits">

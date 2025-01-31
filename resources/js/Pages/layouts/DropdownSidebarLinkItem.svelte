@@ -6,12 +6,18 @@
     export let currentPath;
 
     currentPath = window.location.pathname;
-
+    
     function setActivePath(path) 
     {
         currentPath = path;
     }
 </script>
+
+<style>
+    span, .fa-circle{
+        color: #fff !important;
+    }
+</style>
 
 <li class="nav-item">
     <Link class="nav-link nav-button {currentPath === path ? 'active' : ''}"  href="{path}" on:click={() => setActivePath(path)}>

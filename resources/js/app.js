@@ -1,5 +1,5 @@
-
-import { createInertiaApp } from '@inertiajs/svelte'
+import { createInertiaApp } from '@inertiajs/svelte';
+import { Inertia } from '@inertiajs/inertia'; 
 
 createInertiaApp({
   resolve: name => {
@@ -8,9 +8,17 @@ createInertiaApp({
   },
   setup({ el, App, props }) {
     console.log(props);
-    new App({ target: el, props })
+    new App({ target: el, props });
+    
+    Inertia.on('navigate', () => {
+      let sidebar = document.querySelector('.sidebar'); 
+      if (sidebar) {
+        let num = localStorage.getItem('sidebarScrollPosition');
+          if (num){
+            sidebar.scrollTop = num
+          }
+      }
+  
+    });
   },
 });
-
-
-  

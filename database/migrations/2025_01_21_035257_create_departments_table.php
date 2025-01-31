@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code'); 
             $table->string('name');  
             $table->string('head'); 
-            $table->string('created_by'); 
+            $table->string('created_by')->default('system'); 
             $table->timestamps();
         });
     }
