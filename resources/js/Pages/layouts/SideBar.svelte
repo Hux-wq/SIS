@@ -84,13 +84,13 @@
   />
 
   <hr class="sidebar-divider">
-  <SidebarLink  path={'/CourseList'} 
+  <SidebarLink  path={'/Courses'} 
                 heading={'Course and Subjects '} 
                 label={'Course List'} 
                 icon={'fa-solid fa-list'}
   />
-  <SidebarLink  path={'/SubjectManagement'} 
-                label={'Subject Management'} 
+  <SidebarLink  path={'/Program'} 
+                label={'Programs'} 
                 icon={'fa-solid fa-book'}
   />
   <SidebarLink  path={'/Department'} 

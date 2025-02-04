@@ -43,19 +43,27 @@
                 </tr>
               </thead>
               <tbody>
-                {#each departments as department}
-                  <tr>
-                    <td>{department.id}</td>
-                    <td>{department.code}</td>
-                    <td>{department.name}</td>
-                    <td>{department.head}</td>
-                    <td>{department.created_by}</td>
-                    <td class="d-flex gap-1">
-                      <EditDepartment departmentId={department.id} />
-                      <DeleteDepartment departmentId={department.id} />
+                {#if departments.length > 0}
+                  {#each departments as department}
+                    <tr>
+                      <td>{department.id}</td>
+                      <td class="text-uppercase">{department.code}</td>
+                      <td>{department.name}</td>
+                      <td>{department.head}</td>
+                      <td>{department.created_by}</td>
+                      <td class="d-flex gap-1">
+                        <EditDepartment departmentId={department.id} />
+                        <DeleteDepartment departmentId={department.id} />
+                      </td>
+                    </tr>
+                  {/each}
+                {:else}
+                  <tr class="w-100 border text-center">
+                    <td colspan=6>
+                        <h4 class="pt-4 fw-bolder"> Theres no records in the database</h4>
                     </td>
-                  </tr>
-                {/each}
+                </tr>
+                {/if}
                 
               </tbody>
             </table>

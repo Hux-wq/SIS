@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code');  
             $table->string('name');  
-            $table->string('programs');  
-            $table->string('department');  
-            $table->string('created_by');  
-            $table->unsignedBigInteger('program_id');  
+            $table->string('created_by')->default('system');  
+            $table->unsignedBigInteger('program_id')->nullable();  
 
             $table->foreign('program_id')  
                   ->references('id')  

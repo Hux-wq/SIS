@@ -24,11 +24,14 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::get('/students', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('students');
 
 
-Route::get('/CourseList', [CourseListController::class, 'index'])->middleware(['auth', 'verified'])->name('course-list');
 
 require __DIR__.'/profile.php';
 
+require __DIR__.'/course.php';
+
 require __DIR__.'/department.php';
+
+require __DIR__.'/program.php';
 
 require __DIR__.'/auth.php';
 

@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');  
-            $table->string('department'); 
-            $table->string('created_by');  
-            $table->unsignedBigInteger('department_id'); 
+            $table->string('created_by')->default('system');  
+            $table->unsignedBigInteger('department_id')->nullable();; 
 
             $table->foreign('department_id') 
                   ->references('id')  

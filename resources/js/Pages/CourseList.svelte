@@ -1,67 +1,95 @@
 <script>
-    import PageLayout from './layouts/PageLayout.svelte';
+  import CreateCourse from './components/course/CreateCourse.svelte';
+    import DeleteCourse from './components/course/DeleteCourse.svelte';
+    import EditCourse from './components/course/EditCourse.svelte';
+import PageLayout from './layouts/PageLayout.svelte';
+ 
+  export let courses;
+  export let programs = [];
+  export let departments;
+  export let auth;
+  export let errors = {};
 
 
-    export let auth;
-    export let errors = {};
+  const getProgramName = (programId) => {
+      const program = programs.find(prog => prog.id === programId);
+      return program ? program.name : 'Unknown Program';
+  };
 
+  const getDepartmentCode = (programId) => {
+
+    const program = programs.find(program => program.id === programId);
+    console.log(program.department_id);
+    const dept = departments.find(department => department.id === program.department_id);
+    console.log(dept);
+    return dept ? dept.code.toUpperCase() : "Unknown Department";
+  };
 </script>
 
-<PageLayout auth={auth} errors={errors} title={'Course List'}>
-  <section class="section">
-    <div class="row">
-      <div class="col-lg-12">
+<style>
+ td,th{
+  background: transparent !important;
+  text-transform: capitalize;
+}
+</style>
 
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title yellow">Courses</h5>
+<PageLayout auth={auth} errors={errors} title={'Courses'}>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
 
+      <div class="card">
+        <div class="card-body">
 
-            <!-- Table with stripped rows -->
-            <table class="h-txt-theme bg-transparent w-100">
-              <thead>
-                <tr>
-                  <th >
-                    <b>N</b>o#
-                  </th>
-                  <th>Code</th>
-                  <th>Name</th>
-                  <th  data-type="date" data-format="YYYY/DD/MM">Date Added</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Unity Pugh</td>
-                  <td>9958</td>
-                  <td>Curicó</td>
-                  <td>2005/02/11</td>
-                  <td><button class="btn btn-primary">View Profile</button></td>
-                </tr>
-                <tr>
-                  <td>Theodore Duran</td>
-                  <td>8971</td>
-                  <td>Dhanbad</td>
-                  <td>1999/04/07</td>
-                  <td><button class="btn btn-primary">View Profile</button></td>
-                </tr>
-                <tr>
-                  <td>Kylie Bishop</td>
-                  <td>3147</td>
-                  <td>Norman</td>
-                  <td>2005/09/08</td>
-                  <td><button class="btn btn-primary">View Profile</button></td>
-                </tr>
-                
-              </tbody>
-            </table>
-            <!-- End Table with stripped rows -->
+          <h5 class="card-title yellow">Courses</h5>
+          <CreateCourse progs={programs} />
 
-          </div>
+          <hr>
+          <table class="table">
+            <thead>
+              <tr>
+                <th ><b>N</b>o#</th>
+                <th >Code</th>
+                <th >Name</th>
+                <th >Program</th>
+                <th >Department</th>
+                <th >Created by</th>
+                <th >Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#if courses.length > 0}
+                  {#each courses as course}
+                  <tr>
+                      <td>{course.id}</td>
+                      <td class="text-uppercase">{course.code}</td>
+                      <td>{course.name}</td>
+                      <td>{getProgramName(course.program_id)}</td>
+                      <td>{getDepartmentCode(course.program_id)}</td>
+                      <td>{course.created_by}</td>
+                      <td class="d-flex gap-1">
+                      <EditCourse courseId={course.id} programs={programs} />
+                      <DeleteCourse courseId={course.id}/>
+                      </td>
+                  </tr>
+                  {/each}
+              {:else}
+                <tr class="w-100 border text-center">
+                  <td colspan=7>
+                      <h4 class="pt-4 fw-bolder"> Theres no records in the database</h4>
+                  </td>
+              </tr>
+              {/if}
+              
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
         </div>
-
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 </PageLayout>
 
