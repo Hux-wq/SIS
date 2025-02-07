@@ -34,23 +34,23 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th ><b>N</b>o#</th>
-                  <th >Code</th>
-                  <th >Name</th>
-                  <th >Head</th>
-                  <th >Created by</th>
-                  <th >Action</th>
+                  <th class="h-txt-theme"><b>N</b>o#</th>
+                  <th class="h-txt-theme">Code</th>
+                  <th class="h-txt-theme">Name</th>
+                  <th class="h-txt-theme">Head</th>
+                  <th class="h-txt-theme">Created by</th>
+                  <th class="h-txt-theme">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {#if departments.length > 0}
                   {#each departments as department}
                     <tr>
-                      <td>{department.id}</td>
-                      <td class="text-uppercase">{department.code}</td>
-                      <td>{department.name}</td>
-                      <td>{department.head}</td>
-                      <td>{department.created_by}</td>
+                      <td class="sub">{department.id}</td>
+                      <td class="text-uppercase sub">{department.code}</td>
+                      <td class="sub">{department.name}</td>
+                      <td class="sub">{department.head}</td>
+                      <td class="sub">{department.created_by}</td>
                       <td class="d-flex gap-1">
                         <EditDepartment departmentId={department.id} />
                         <DeleteDepartment departmentId={department.id} />

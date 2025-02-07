@@ -45,31 +45,31 @@ import PageLayout from './layouts/PageLayout.svelte';
           <CreateCourse progs={programs} />
 
           <hr>
-          <table class="table">
+          <table class="table h-txt-theme">
             <thead>
               <tr>
-                <th ><b>N</b>o#</th>
-                <th >Code</th>
-                <th >Name</th>
-                <th >Program</th>
-                <th >Department</th>
-                <th >Created by</th>
-                <th >Action</th>
+                <th class="h-txt-theme"><b>N</b>o#</th>
+                <th class="h-txt-theme">Code</th>
+                <th class="h-txt-theme">Name</th>
+                <th class="h-txt-theme">Program</th>
+                <th class="h-txt-theme">Department</th>
+                <th class="h-txt-theme">Created by</th>
+                <th class="h-txt-theme">Action</th>
               </tr>
             </thead>
             <tbody>
               {#if courses.length > 0}
                   {#each courses as course}
                   <tr>
-                      <td>{course.id}</td>
-                      <td class="text-uppercase">{course.code}</td>
-                      <td>{course.name}</td>
-                      <td>{getProgramName(course.program_id)}</td>
-                      <td>{getDepartmentCode(course.program_id)}</td>
-                      <td>{course.created_by}</td>
+                      <td class="sub">{course.id}</td>
+                      <td class="text-uppercase sub">{course.code}</td>
+                      <td class="sub">{course.name}</td>
+                      <td class="sub">{getProgramName(course.program_id)}</td>
+                      <td class="sub">{getDepartmentCode(course.program_id)}</td>
+                      <td class="sub">{course.created_by}</td>
                       <td class="d-flex gap-1">
                       <EditCourse courseId={course.id} programs={programs} />
-                      <DeleteCourse courseId={course.id}/>
+                      <DeleteCourse courseId={course.id} code={course.code}/>
                       </td>
                   </tr>
                   {/each}

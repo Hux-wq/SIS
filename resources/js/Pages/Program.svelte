@@ -41,23 +41,23 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th ><b>N</b>o#</th>
-                  <th >Code</th>
-                  <th >Name</th>
-                  <th >Department</th>
-                  <th >Created by</th>
-                  <th >Action</th>
+                  <th class="h-txt-theme"><b>N</b>o#</th>
+                  <th class="h-txt-theme">Code</th>
+                  <th class="h-txt-theme">Name</th>
+                  <th class="h-txt-theme">Department</th>
+                  <th class="h-txt-theme">Created by</th>
+                  <th class="h-txt-theme">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {#if programs.length > 0}
                     {#each programs as program}
                     <tr>
-                        <td>{program.id}</td>
-                        <td class="text-uppercase">{program.code}</td>
-                        <td>{program.name}</td>
-                        <td>{getDepartmentName(program.department_id)}</td>
-                        <td>{program.created_by}</td>
+                        <td class="sub">{program.id}</td>
+                        <td class="text-uppercase sub">{program.code}</td>
+                        <td class="sub">{program.name}</td>
+                        <td class="sub">{getDepartmentName(program.department_id)}</td>
+                        <td class="sub">{program.created_by}</td>
                         <td class="d-flex gap-1">
                         <EditProgram programId={program.id} departments={departments}/>
                         <DeleteProgram programId={program.id} code={program.code} /> 

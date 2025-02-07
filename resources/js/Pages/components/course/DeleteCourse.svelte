@@ -2,10 +2,10 @@
 
     let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     export let courseId;
-
+    export let code;
     const destroy = async () => {
     const confirmed = await Swal.fire({
-      title: 'Delete this Course?',
+      title: 'Delete the Course ' + code.toLocaleUpperCase() + '?',
       text: 'All of the data that is linked to this course will also be deleted!',
       icon: 'warning',
       showCancelButton: true,
@@ -30,7 +30,7 @@
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Course has been deleted!",
+          title: "Course " + code.toLocaleUpperCase() + " has been deleted!",
           showConfirmButton: true,
           padding:"3em",
         }).then(() => {
