@@ -23,5 +23,14 @@ class AdminSeeder extends Seeder
             'password' =>  Hash::make('Administrator'),
             'remember_token' => null,
         ]);
+
+        User::create([
+            'id' => 2,
+            'name' => 'Mark Ryan Liscabo',
+            'email' => 'students@student.com',
+            'email_verified_at' => null,
+            'password' =>  Hash::make('Students'),
+            'remember_token' => null,
+        ]);
     }
 }
