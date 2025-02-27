@@ -1,25 +1,9 @@
 <script>
   import  SidebarLink  from './SidebarLink.svelte';
   import  DropdownSidebarLink  from './DropdownSidebarLink.svelte';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { router } from '@inertiajs/svelte';
 
-  let sidebar;
-
-  onMount(() => {
-    if (sidebar) {
-      sidebar.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (sidebar) {
-        sidebar.removeEventListener('scroll', handleScroll);
-      }
-    };
-  });
-
-  function handleScroll() {
-    localStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
-  }
 
   export let userid;
   export let username;
@@ -32,11 +16,29 @@
     }
   );
 
-  function setActivePath(path) 
-    {
-        currentPath = path;
-    }
+  let sidebarElement;
 
+    let unsubscribeBefore = router.on('before', (event) => {
+        // Save scroll position before navigation
+        if (sidebarElement) {
+            localStorage.setItem('sidebarScrollPosition', sidebarElement.scrollTop);
+        }
+    });
+    
+    let unsubscribeAfter = router.on('finish', (event) => {
+        // Restore scroll position after navigation
+        if (sidebarElement) {
+            setTimeout(() => {
+                sidebarElement.scrollTop = parseInt(localStorage.getItem('sidebarScrollPosition') || '0');
+            }, 5);
+        }
+    });
+    
+    onDestroy(() => {
+        unsubscribeBefore();
+        unsubscribeAfter();
+    });
+  
 </script>
 
 <style>
@@ -45,7 +47,7 @@
   }
 </style>
 
-<aside bind:this={sidebar}  id="sidebar" class="sidebar" style="z-index: 99;">
+<aside bind:this={sidebarElement}  id="sidebar" class="sidebar" style="z-index: 99;">
 
   <ul class="sidebar-nav" id="sidebar-nav" >
 
@@ -58,13 +60,13 @@
 
     <div style="display: flex; flex-direction: column; align-items: center; padding: 16px;">
       <div style="display: flex; align-items: center; justify-content: center; width: 96px; height: 96px; border-radius: 50%; background-color: #334155; color: #e2e8f0; font-size: 48px; font-weight: bold; text-transform: uppercase; line-height: 1;">
-          <img src="img/profile-img.jpg" style="border-radius: 100%" alt="">
+          <img src="/img/profile-img.jpg" style="border-radius: 100%" alt="">
       </div>
       <div style="display: flex; flex-direction: column; align-items: center; margin-top: 24px; text-align: center;">
-          <div class="h-txt-theme" style="font-weight: 500; color: #fff;">
+          <div class="" style="font-weight: 500; color: #fff;">
               {username}
           </div>
-          <div class="h-txt-theme" style="margin-top: 4px; font-size: 14px; color: #fff;">
+          <div class="" style="margin-top: 4px; font-size: 14px; color: #fff;">
               {userid}
           </div>
       </div>
@@ -77,7 +79,7 @@
   />
 
   <hr class="sidebar-divider ">
-  <SidebarLink  path={'/students'} 
+  <SidebarLink  path={'/Students'} 
                 heading={'Find Student'} 
                 label={'Students'} 
                 icon={'fa-solid fa-graduation-cap'}

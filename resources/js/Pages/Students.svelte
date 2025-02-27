@@ -4,8 +4,29 @@
 
     export let auth;
     export let errors = {};
+    export let users;
+
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',  
+      year: 'numeric', 
+      month: 'long',  
+      day: 'numeric',
+    });
+  }
 
 </script>
+
+<style>
+  td,th{
+   background: transparent !important;
+   text-transform: capitalize;
+ }
+ 
+
+</style>
 
 <PageLayout auth={auth} errors={errors} title={'Students'}>
   <section class="section">
@@ -18,41 +39,39 @@
 
 
             <!-- Table with stripped rows -->
-            <table class="h-txt-theme bg-transparent w-100">
+            <table class="table h-txt-theme bg-transparent w-100">
               <thead>
                 <tr>
-                  <th >
+                  <th class="h-txt-theme" >
                     <b>N</b>ame
                   </th>
-                  <th>Ext.</th>
-                  <th>City</th>
-                  <th  data-type="date" data-format="YYYY/DD/MM">Start Date</th>
-                  <th>Action</th>
+                  <th class="h-txt-theme">Age</th>
+                  <th class="h-txt-theme">Gender</th>
+                  <th class="h-txt-theme">Email</th>
+                  <th class="h-txt-theme">Updated at</th>
+                  <th class="h-txt-theme">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Unity Pugh</td>
-                  <td>9958</td>
-                  <td>Curicó</td>
-                  <td>2005/02/11</td>
-                  <td><button class="btn btn-primary">View Profile</button></td>
+                {#if users.length > 0}
+                    {#each users as user}
+                    <tr>
+                        <td class="sub">{user.name}</td>
+                        <td class="sub">{user.user_basic_info.age}</td>
+                        <td class="sub text-capitalize">{user.user_basic_info.sex}</td>
+                        <td class="sub text-lowercase">{user.email}</td>
+                        
+                        <td>{formatDate(user.created_at)}</td>
+                        <td><a href="/Students/Profile/View/{user.id}" class="btn btn-primary">View Profile</a></td>
+                    </tr>
+                    {/each}
+                {:else}
+                  <tr class="w-100 border text-center">
+                    <td colspan=6>
+                        <h4 class="pt-4 fw-bolder"> Theres no records in the database</h4>
+                    </td>
                 </tr>
-                <tr>
-                  <td>Theodore Duran</td>
-                  <td>8971</td>
-                  <td>Dhanbad</td>
-                  <td>1999/04/07</td>
-                  <td><button class="btn btn-primary">View Profile</button></td>
-                </tr>
-                <tr>
-                  <td>Kylie Bishop</td>
-                  <td>3147</td>
-                  <td>Norman</td>
-                  <td>2005/09/08</td>
-                  <td><button class="btn btn-primary">View Profile</button></td>
-                </tr>
-                
+                {/if}
               </tbody>
             </table>
             <!-- End Table with stripped rows -->

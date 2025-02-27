@@ -21,6 +21,7 @@ class AdminSeeder extends Seeder
             'email' => 'admin@admin.com',
             'email_verified_at' => null,
             'password' =>  Hash::make('Administrator'),
+            'account_type' => 'admin',
             'remember_token' => null,
         ]);
 
@@ -30,6 +31,7 @@ class AdminSeeder extends Seeder
             'email' => 'students@student.com',
             'email_verified_at' => null,
             'password' =>  Hash::make('Students'),
+            'account_type' => 'student',
             'remember_token' => null,
         ]);
     }

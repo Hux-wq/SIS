@@ -21,7 +21,7 @@ Route::get('/', function () { return view('welcome'); });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/students', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('students');
+Route::get('/Students', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('students');
 
 
 
@@ -36,6 +36,8 @@ require __DIR__.'/program.php';
 require __DIR__.'/auth.php';
 
 require __DIR__.'/reports.php';
+
+require __DIR__.'/student.php';
 
 require __DIR__.'/api.php';
 

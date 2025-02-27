@@ -18,7 +18,7 @@ class UserContactInfoSeeder extends Seeder
         UserContactInfo::create([
             'phone_number' => 9387161706,
             'email_address' => $faker->unique()->safeEmail,
-            'facebook' => $faker->optional()->url,
+            'facebook' => $faker->url,
             'user_id' => 2, 
         ]);
     }
