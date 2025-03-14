@@ -15,9 +15,27 @@ class DepartmentSeeder extends Seeder
         Department::create([
             'id' => 1,
             'code' => 'ccs',
-            'name' => '	college of computer science',
+            'name' => 'college of computer science',
             'head' => 'default',
             'created_by' => 'admin',
         ]);
+
+        Department::create([
+            'id' => 2,
+            'code' => 'clis',
+            'name' => 'college of library and information science',
+            'head' => 'default',
+            'created_by' => 'admin',
+        ]);
+
+        Department::create([
+            'id' => 3,
+            'code' => 'cba',
+            'name' => 'college of business and accountancy',
+            'head' => 'default',
+            'created_by' => 'admin',
+        ]);
+
+        
     }
 }

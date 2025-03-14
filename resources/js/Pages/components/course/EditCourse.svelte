@@ -8,8 +8,8 @@
 
 
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#department-{courseId}-edit-modal">
-    <i class="fa-solid fa-eye"></i>
+<button type="button" class="btn btn-primary  rounded-circle pt-2" data-bs-toggle="modal" data-bs-target="#department-{courseId}-edit-modal">
+    <i class="fa-solid fa-eye pb-1 fs-6"></i>
 </button>
 
 <div class="modal fade" id="department-{courseId}-edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

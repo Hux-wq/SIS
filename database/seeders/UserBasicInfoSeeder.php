@@ -23,5 +23,16 @@ class UserBasicInfoSeeder extends Seeder
             'current_address' => $faker->address,
             'user_id' => 2,
         ]);
+
+        $faker = Faker::create();
+        UserBasicInfo::create([
+            'age' => $faker->numberBetween(40, 60),
+            'sex' => $faker->randomElement(['male', 'female']),
+            'birthdate' => $faker->date(),
+            'religion' => $faker->word,
+            'place_of_birth' => $faker->city,
+            'current_address' => $faker->address,
+            'user_id' => 3,
+        ]);
     }
 }

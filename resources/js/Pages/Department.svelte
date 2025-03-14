@@ -1,4 +1,5 @@
-<script>
+<script>    
+    import { onMount } from "svelte";
     import CreateDepartment from './components/department/CreateDepartment.svelte';
     import DeleteDepartment from './components/department/DeleteDepartment.svelte';
     import EditDepartment from './components/department/EditDepartment.svelte';
@@ -7,6 +8,10 @@
     export let departments;
     export let auth;
     export let errors = {};
+
+    onMount(  () => {
+        let table = new DataTable('#departmentTable');
+    });
 
 </script>
 
@@ -19,7 +24,7 @@
 
 </style>
 
-<PageLayout auth={auth} errors={errors} title={'Department'}>
+<PageLayout auth={auth} errors={errors} title={['Department']}>
   <section class="section  ">
     <div class="row">
       <div class="col-lg-12">
@@ -31,7 +36,7 @@
             <CreateDepartment />
 
             <hr>
-            <table class="table">
+            <table id="departmentTable">
               <thead>
                 <tr>
                   <th class="h-txt-theme"><b>N</b>o#</th>

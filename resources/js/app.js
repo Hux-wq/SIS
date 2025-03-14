@@ -9,16 +9,5 @@ createInertiaApp({
   setup({ el, App, props }) {
     console.log(props);
     new App({ target: el, props });
-    
-    Inertia.on('navigate', () => {
-      let sidebar = document.querySelector('.sidebar'); 
-      if (sidebar) {
-        let num = localStorage.getItem('sidebarScrollPosition');
-          if (num){
-            sidebar.scrollTop = num
-          }
-      }
-  
-    });
   },
 });

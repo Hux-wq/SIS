@@ -28,9 +28,7 @@
     let unsubscribeAfter = router.on('finish', (event) => {
         // Restore scroll position after navigation
         if (sidebarElement) {
-            setTimeout(() => {
-                sidebarElement.scrollTop = parseInt(localStorage.getItem('sidebarScrollPosition') || '0');
-            }, 5);
+              sidebarElement.scrollTop = parseInt(localStorage.getItem('sidebarScrollPosition') || '0');
         }
     });
     
@@ -98,6 +96,9 @@
   <SidebarLink  path={'/Department'} 
                 label={'Department'} 
                 icon={'fa-solid fa-building'}/>
+  <SidebarLink  path={'/Sections'} 
+                label={'Section'} 
+                icon={'fa-solid fa-gear'}/>
 
   <hr class="sidebar-divider">
   <DropdownSidebarLink  heading={'Student Request'} 

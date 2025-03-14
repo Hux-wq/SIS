@@ -18,22 +18,21 @@ class InactivityTimeout
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $timeout = 20;
+        $timeout = 120;
 
         
         if (Auth::check()) {
             
             $lastActivity = session('last_activity_time');
 
+            // In the InactivityTimeout Middleware
             if ($lastActivity && Carbon::parse($lastActivity)->addMinutes($timeout)->isPast()) {
-                Auth::logout(); 
-                session()->invalidate();
-                session()->regenerateToken();
+            Auth::logout(); 
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-                
-                session(['session_expired' => true]);
-                
-                return Inertia::render('Login');
+            // For session timeout
+            return redirect()->route('login')->with(['status'=>'error', 'message'=>'Your session has expired. Please log in again.']);
             }
 
             session(['last_activity_time' => now()]);

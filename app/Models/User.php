@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserBasicInfo;
+use App\Models\UserBasicNameInfo;
+use App\Models\UserSchoolInfo;
 
 class User extends Authenticatable
 {
@@ -48,5 +50,13 @@ class User extends Authenticatable
     public function userBasicInfo()
     {
         return $this->hasOne(UserBasicInfo::class);
+    }
+    public function userBasicNameInfo()
+    {
+        return $this->hasOne(UserBasicNameInfo::class);
+    }
+    public function userSchoolInfo()
+    {
+        return $this->hasOne(UserSchoolInfo::class);
     }
 }

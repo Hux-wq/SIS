@@ -7,21 +7,18 @@ use App\Models\User;
 use App\Models\Grade;
 use Inertia\Inertia;
 
-class StudentProfileController extends Controller
+class AcademicPerformanceController extends Controller
 {
     public function index($id)
     {
         
         $students = User::with('userBasicInfo','userBasicNameInfo')->findOrFail($id);
         $grades = Grade::where('student_id', $id)->get();
-        return Inertia::render('StudentProfile', [
+        return Inertia::render('AcademicPerformance', [
 
             'students' => $students,
             'grades' => $grades,
         
         ]); 
     }
-
-    
- 
 }

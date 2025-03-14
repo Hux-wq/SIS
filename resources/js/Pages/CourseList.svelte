@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import CreateCourse from './components/course/CreateCourse.svelte';
     import DeleteCourse from './components/course/DeleteCourse.svelte';
     import EditCourse from './components/course/EditCourse.svelte';
@@ -24,6 +25,10 @@ import PageLayout from './layouts/PageLayout.svelte';
     console.log(dept);
     return dept ? dept.code.toUpperCase() : "Unknown Department";
   };
+
+  onMount(  () => {
+      let table = new DataTable('#courseTable');
+  });
 </script>
 
 <style>
@@ -33,7 +38,7 @@ import PageLayout from './layouts/PageLayout.svelte';
 }
 </style>
 
-<PageLayout auth={auth} errors={errors} title={'Courses'}>
+<PageLayout auth={auth} errors={errors} title={['Courses']}>
 <section class="section">
   <div class="row">
     <div class="col-lg-12">
@@ -45,7 +50,7 @@ import PageLayout from './layouts/PageLayout.svelte';
           <CreateCourse progs={programs} />
 
           <hr>
-          <table class="table h-txt-theme">
+          <table id="courseTable">
             <thead>
               <tr>
                 <th class="h-txt-theme"><b>N</b>o#</th>
@@ -68,7 +73,7 @@ import PageLayout from './layouts/PageLayout.svelte';
                       <td class="sub">{getDepartmentCode(course.program_id)}</td>
                       <td class="sub">{course.created_by}</td>
                       <td class="d-flex gap-1">
-                      <EditCourse courseId={course.id} programs={programs} />
+                      <EditCourse  courseId={course.id} programs={programs} />
                       <DeleteCourse courseId={course.id} code={course.code}/>
                       </td>
                   </tr>

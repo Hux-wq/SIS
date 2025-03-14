@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
-
+    import FlashMessage from './layouts/FlashMessage.svelte';
+    
   
     let email = '';
     let password = '';
@@ -143,7 +144,7 @@
                       </div>
                       {/if}
                     </div>
-                  
+                    <FlashMessage />
                     <!-- Remember Me -->
                     <div class="col-12 col-lg-6 mt-2">
                       <label for="remember_me" class="inline-flex items-center">

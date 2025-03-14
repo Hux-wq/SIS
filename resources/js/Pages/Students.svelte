@@ -1,6 +1,8 @@
 <script>
+    import { onMount } from "svelte";
     import PageLayout from './layouts/PageLayout.svelte';
-
+    import { Link } from '@inertiajs/svelte';
+    import PageTitle from "./layouts/PageTitle.svelte";
 
     export let auth;
     export let errors = {};
@@ -17,6 +19,10 @@
     });
   }
 
+  onMount(  () => {
+    let table = new DataTable('#studentTable');
+  });
+
 </script>
 
 <style>
@@ -24,11 +30,13 @@
    background: transparent !important;
    text-transform: capitalize;
  }
+
  
 
 </style>
 
-<PageLayout auth={auth} errors={errors} title={'Students'}>
+<PageLayout auth={auth} errors={errors} title={['Student']} >
+
   <section class="section">
     <div class="row">
       <div class="col-lg-12">
@@ -39,7 +47,7 @@
 
 
             <!-- Table with stripped rows -->
-            <table class="table h-txt-theme bg-transparent w-100">
+            <table id="studentTable">
               <thead>
                 <tr>
                   <th class="h-txt-theme" >
@@ -62,7 +70,7 @@
                         <td class="sub text-lowercase">{user.email}</td>
                         
                         <td>{formatDate(user.created_at)}</td>
-                        <td><a href="/Students/Profile/View/{user.id}" class="btn btn-primary">View Profile</a></td>
+                        <td><Link href="/Students/Profile/View/{user.id}" class="btn btn-primary rounded-circle pt-2"><i class="fa-solid fa-eye pb-1"></i></Link></td>
                     </tr>
                     {/each}
                 {:else}

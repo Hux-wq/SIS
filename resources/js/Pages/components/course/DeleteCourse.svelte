@@ -57,7 +57,13 @@
     };
 </script>
 
+<style>
+.fa-trash{
+  width: 20px;
+}
+</style>
+
 
 <div>
-   <button class="btn btn-danger"on:click={destroy}><i class="fa-solid fa-trash"></i></button>
+   <button class="btn btn-danger  rounded-circle pt-2"on:click={destroy}><i class="fa-solid fa-trash pb-1 fs-6"></i></button>
 </div>

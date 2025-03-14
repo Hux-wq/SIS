@@ -2,10 +2,12 @@
     import SideBar from "./SideBar.svelte";
     import Header from "./Header.svelte";
     import Error from "./Error.svelte";
+    import PageTitle from "./PageTitle.svelte";
 
     export let auth;
     export let errors;
-    export let title;
+    export let title = [];
+
     
 </script>
   
@@ -14,12 +16,7 @@
     <Header userid={auth.user.id} username={auth.user.name} useremail={auth.user.email} />
     <SideBar userid={auth.user.id} username={auth.user.name} />
     <Error errors={errors} />
-    
-    <x-slot name="header">
-        <h2 class="">
-            {title}
-        </h2>
-    </x-slot>
+    <PageTitle title={title}/>
 
     <slot />
 

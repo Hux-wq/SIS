@@ -24,10 +24,14 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             ProgramSeeder::class,
             CourseSeeder::class,
+            SectionSeeder::class,
 
             UserBasicNameInfoSeeder::class,
             UserBasicInfoSeeder::class,
             UserContactInfoSeeder::class,
+            UserSchoolInfoSeeder::class,
+
+            GradeSeeder::class,
         ]);
     }
 }

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-
-class UserBasicNameInfo extends Model
+class UserSchoolInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name', 'middle_name','last_name','suffix_name','user_id'];
+    
+    protected $fillable = ['student_id', 'section_id','position'];
 
     public function user()
     {

@@ -15,11 +15,20 @@ class UserBasicNameInfoSeeder extends Seeder
     {
         $faker = Faker::create();
         UserBasicNameInfo::create([
-            'first_name' => $faker->firstName,
-            'middle_name' => $faker->lastName,
-            'last_name' => $faker->lastName,
+            'first_name' => 'john',
+            'middle_name' => 'Doe',
+            'last_name' => 'Smith',
             'suffix_name' => $faker->optional()->word,
             'user_id' => 2, // Assume there are at least 50 users
+        ]);
+
+        $faker = Faker::create();
+        UserBasicNameInfo::create([
+            'first_name' => 'maxim',
+            'middle_name' => 'smith',
+            'last_name' => 'lim',
+            'suffix_name' => $faker->optional()->word,
+            'user_id' => 3, // Assume there are at least 50 users
         ]);
     }
 }
